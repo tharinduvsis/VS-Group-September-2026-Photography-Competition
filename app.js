@@ -202,13 +202,24 @@ function renderBallotBar() {
   ballotSubmitBtn.disabled = myBallot.length === 0;
 }
 
-ballotSubmitBtn.addEventListener("click", () => {
+ballotSubmitBtn.addEventListener("click", async () => {
   if (myBallot.length === 0 || mySubmittedVotes) return;
+
   if (auth.currentUser) {
     submitBallot();
-  } else {
+    return;
+  }
+
+  // Not signed in yet — popup, then submit
+  ballotSubmitBtn.disabled = true;
+  try {
     window.localStorage.setItem(PENDING_BALLOT_KEY, JSON.stringify(myBallot));
-    signInWithGoogle();
+    await signInWithGoogle();
+    // onAuthStateChanged will pick up the pending ballot and call submitBallot()
+  } catch (err) {
+    console.error("Google sign-in failed:", err);
+    alert("Google sign-in failed: " + (err.message || err.code || "unknown error"));
+    ballotSubmitBtn.disabled = false;
   }
 });
 
@@ -217,7 +228,7 @@ ballotSubmitBtn.addEventListener("click", () => {
 function signInWithGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
-  auth.signInWithRedirect(provider);
+  return auth.signInWithPopup(provider);
 }
 
 async function submitBallot() {
