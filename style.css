@@ -7,74 +7,174 @@
   --gold: #C9A24B;
   --gold-dim: #8F7638;
   --line: #38363F;
-  --bg: #191817;
-  --bg-raised: #2a2827;
-  --card: #2a2827;
-  --paper: #f0efef;
-  --paper-dim: #a8a6a4;
-  --gold: #c02225;
-  --gold-dim: #660708;
-  --line: #3a3837;
   --radius: 4px;
   --serif: 'Fraunces', Georgia, serif;
   --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-@@ -28,7 +28,26 @@ body {
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--paper);
   font-family: var(--sans);
   line-height: 1.5;
 }
 
-/* Top banner */
-.site-banner {
-  width: 100%;
-  background: #f0efef;
-  line-height: 0;
-  border-bottom: 1px solid var(--line);
-}
-.site-banner img {
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 220px;
-  object-fit: cover;
-  object-position: center;
-}
-@media (max-width: 720px) {
-  .site-banner img {
-    max-height: 140px;
-  }
-}
 a, button, input { font-family: inherit; }
 
 button { cursor: pointer; }
-@@ -111,8 +130,8 @@ button { cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.kicker {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+}
+.header-text h1 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.05;
+}
+.subhead {
+  margin: 0;
+  max-width: 480px;
+  color: var(--paper-dim);
+  font-size: 15px;
+}
+.header-stats {
+  display: flex;
+  gap: 32px;
+}
+.stat { text-align: right; }
+.stat-number {
+  display: block;
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--gold);
+}
+.stat-label {
+  font-size: 13px;
+  color: var(--paper-dim);
+}
+
+/* Leaderboard */
+.leaderboard {
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.leaderboard-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px;
+}
+.leaderboard-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--paper-dim);
+  margin-bottom: 12px;
+}
+.live-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #D4574C;
   box-shadow: 0 0 0 3px rgba(212, 87, 76, 0.2);
-  background: var(--gold);
-  box-shadow: 0 0 0 3px rgba(192, 34, 37, 0.25);
 }
 .leaderboard-slots {
   display: grid;
-@@ -320,17 +339,17 @@ button { cursor: pointer; }
-  margin: 0;
-  color: var(--paper-dim);
-  font-size: 14px;
-}.btn-vote {
-.btn-vote {
-  background: var(--gold);
-  color: #1A160B;
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  padding: 11px 18px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
 }
-.btn-vote:hover { background: #D9B25E; }
-.btn-vote:hover { background: #d42a2d; }
-.btn-vote:disabled {
-  background: var(--line);
+.leaderboard-slot {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.leaderboard-slot.rank-1 { border-color: var(--gold-dim); }
+.slot-rank {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--gold);
+  width: 28px;
+}
+.slot-info { flex: 1; min-width: 0; }
+.slot-frame {
+  font-size: 12px;
   color: var(--paper-dim);
+}
+.slot-count {
+  font-family: var(--serif);
+  font-size: 15px;
+}
+.leaderboard-empty {
+  color: var(--paper-dim);
+  font-size: 14px;
+}
+
+/* Toolbar */
+.toolbar {
+  border-bottom: 1px solid var(--line);
+}
+.toolbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+#search-input {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  color: var(--paper);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  font-size: 14px;
+  min-width: 220px;
+}
+.vote-status {
+  font-size: 13px;
+  color: var(--gold);
+}
+
+/* Gallery */
