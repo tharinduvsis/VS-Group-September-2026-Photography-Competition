@@ -242,8 +242,7 @@ button { cursor: pointer; }
 }
 
 /* Modal */
-.modal-backdrop[hidden] {
-  display: none;
+.modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(10, 9, 12, 0.82);
@@ -253,6 +252,12 @@ button { cursor: pointer; }
   padding: 20px;
   z-index: 50;
 }
+
+/* This is the important part — hide when the attribute is present */
+.modal-backdrop[hidden] {
+  display: none;
+}
+
 .modal {
   background: var(--bg-raised);
   border: 1px solid var(--line);
@@ -315,8 +320,7 @@ button { cursor: pointer; }
   margin: 0;
   color: var(--paper-dim);
   font-size: 14px;
-}
-.btn-vote {
+}.btn-vote {
   background: var(--gold);
   color: #1A160B;
   border: none;
