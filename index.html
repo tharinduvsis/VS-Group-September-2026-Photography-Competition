@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VSIS Photography Competition — Vote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-text">
+      <p class="kicker">VSIS Group</p>
+      <h1 id="competition-title">Photography Competition</h1>
+      <p class="subhead" id="max-votes-note">Pick your favorites, then submit once.</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat">
+        <span class="stat-number" id="total-votes">0</span>
+        <span class="stat-label">votes cast</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="total-photos">0</span>
+        <span class="stat-label">submissions</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="leaderboard" aria-label="Current leaderboard">
+  <div class="leaderboard-inner">
+    <div class="leaderboard-label">
+      <span class="live-dot"></span>
+      Leading right now
+    </div>
+    <div class="leaderboard-slots" id="leaderboard-slots">
+      <!-- filled by app.js -->
+    </div>
+  </div>
+</section>
+
+<section class="toolbar">
+  <div class="toolbar-inner">
+    <input type="search" id="search-input" placeholder="Find a frame by number…" aria-label="Search by submission number" />
+    <div id="vote-status" class="vote-status"></div>
+  </div>
+</section>
+
+<main class="gallery-wrap">
+  <div class="gallery" id="gallery" role="list">
+    <!-- filled by app.js -->
+  </div>
+  <p class="empty-state" id="empty-state" hidden>No frame matches that number.</p>
+</main>
+
+<footer class="site-footer">
+  <p>Voting closes soon — make it count. Questions? Reach the HR team.</p>
+</footer>
+
+<div class="ballot-bar" id="ballot-bar" hidden>
+  <div class="ballot-inner">
+    <div class="ballot-info">
+      <span class="ballot-count" id="ballot-count"></span>
+      <span class="ballot-list" id="ballot-list"></span>
+    </div>
+    <button class="btn-vote" id="ballot-submit-btn">Submit my votes</button>
+  </div>
+</div>
+
+<!-- Lightbox / voting modal -->
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-image-wrap">
+      <img id="modal-image" src="" alt="" />
+    </div>
+    <div class="modal-panel">
+      <p class="modal-frame-number" id="modal-frame-number"></p>
+      <h2 id="modal-title"></h2>
+      <p id="modal-caption" class="modal-caption"></p>
+
+      <div id="vote-area">
+        <button class="btn-vote" id="vote-btn">Add to your picks</button>
+      </div>
+
+      <div id="message-area" class="message-area" hidden></div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase (compat SDK — no build tools needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
